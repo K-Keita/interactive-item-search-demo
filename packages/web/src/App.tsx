@@ -14,6 +14,7 @@ import urlJoin from "url-join";
 import { COOKIE_NAME, url } from "./components/common";
 import { AnswerMessage } from "./types";
 import { useCookies } from "react-cookie";
+import { AlertCircle } from "tabler-icons-react";
 
 type Chat =
   | {
@@ -39,6 +40,7 @@ function App() {
   const [chats, setChats] = useState<Chat[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cookie, setCookie] = useCookies([COOKIE_NAME]);
+  const [isError, setIsError] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -58,6 +60,7 @@ function App() {
 
   const submitQuestion = (message: string) => {
     if (message === "") return;
+    if (isError) setIsError(false);
     setIsLoading(true);
     const updatedChats: Chat[] = [...chats, { type: "question", message }];
     setChats(updatedChats);
@@ -81,6 +84,10 @@ function App() {
     if (!res.ok) {
       const error = new Error("不具合が発生しました");
       console.error(error);
+
+      setIsError(true);
+      setIsLoading(false);
+      return;
     }
 
     const json = await res.json();
@@ -174,6 +181,27 @@ function App() {
                     variant="dots"
                     className="mx-2"
                   />
+                </Text>
+              </Box>
+            ) : null}
+            {isError ? (
+              <Box className="flex items-end my-4">
+                <ActionIcon
+                  className="bg-cyan-200 border-cyan-200"
+                  size="lg"
+                  mr="xs"
+                  radius="xl"
+                  variant="default"
+                />
+                <Text
+                  className={`${commonStyle} bg-cyan-200 mr-auto rounded-bl-none p-1 text-red-500`}
+                >
+                  <AlertCircle
+                    className="mx-1 -mb-1"
+                    size={20}
+                    strokeWidth={1.5}
+                  />
+                  予期せぬエラーが発生しました。リロードしてやり直してください。
                 </Text>
               </Box>
             ) : null}
