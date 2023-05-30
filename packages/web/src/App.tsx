@@ -141,17 +141,27 @@ function App() {
                           </Box>
                           <Box className="flex overflow-x-auto">
                             {chat.content.items.length > 0
-                              ? chat.content.items.map((value) => {
+                              ? chat.content.items.map((value, i) => {
+                                  console.log("item", value);
                                   return (
-                                    <Image
-                                      maw={380}
-                                      miw={280}
-                                      my="md"
-                                      mr="md"
-                                      radius="md"
-                                      src={value.image_url}
-                                      alt={value.description}
-                                    />
+                                    <Box className="max-w-[380px] mx-2 my-4">
+                                      <Text className="text-sm my-1 rounded-md bg-cyan-50 bg-opacity-60 table text-center px-2 mx-auto truncate">
+                                        {/* 現状はdescriptionを表示しており、文字数が多いため最初の空白までを表示 */}
+                                        {value.description.substring(
+                                          0,
+                                          value.description.indexOf(" ")
+                                        )}
+                                      </Text>
+                                      <Image
+                                        key={i}
+                                        maw={380}
+                                        miw={280}
+                                        mr="md"
+                                        radius="md"
+                                        src={value.image_url}
+                                        alt={value.description}
+                                      />
+                                    </Box>
                                   );
                                 })
                               : null}

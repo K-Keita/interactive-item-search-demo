@@ -21,12 +21,14 @@ if (isMocked) {
           ctx.json({
             items: [
               {
-                description: "string",
+                description:
+                  "コンソールテーブル 北欧の白い大理石の丸い小さなコーヒーテーブル/サイドテーブル、ゴールドの錬鉄製の…的なコーナーテーブル、リビングルームのソファベッドルームの小さなスペースに適しています",
                 id: "string",
                 image_url: "http://localhost:3000/images/sampleA.jpg",
               },
               {
-                description: "string",
+                description:
+                  "コンソールテーブル 北欧の白い大理石の丸い小さなコーヒーテーブル/サイドテーブル、ゴールドの錬鉄製の…的なコーナーテーブル、リビングルームのソファベッドルームの小さなスペースに適しています",
                 id: "string",
                 image_url: "http://localhost:3000/images/sampleB.jpg",
               },
